@@ -1,11 +1,12 @@
 from django.shortcuts import render
+from .models import Message
 
 
 def index(request):
-    return render(request, 'index.html', {})
+    return render(request, 'chat/index.html')
 
 
 def room(request, room_id):
-    return render(request, 'chatroom.html', {
-        'room_id': room_id
-    })
+    messages = Message.objects.filter(room__room_id=room_id)[0:25]
+    context = {'room_id': room_id, 'username': "Sagar", "messages": messages}
+    return render(request, 'chat/room.html', context)

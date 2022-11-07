@@ -120,6 +120,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ASGI_APPLICATION = 'chat_backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    }
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -149,5 +157,3 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=3),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
 }
-
-ASGI_APPLICATION = 'chat_backend.asgi.application'
