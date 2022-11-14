@@ -1,15 +1,23 @@
 import Store from '../../redux/store/store'
-import { setLoginStatus } from '../../redux/slice/user'
+import { setLoginStatus, setLoggedInUserDetails } from '../../redux/slice/user'
 import { Request, Constants } from '../../constants/api'
 import { openAxios } from '../instance'
 import { saveUserDetails } from '../../utils'
+import jwt_decode from "jwt-decode";
 // import { handleAPIError } from '../../utils/dialogErrorHandler'
 
 export const loginUser = async (values) => {
   try {
     const res = await openAxios.post(Request.LOGIN_USER, values)
     saveUserDetails(res.data)
+    let decoded = jwt_decode(res.data.access);
     Store.dispatch(setLoginStatus(true))
+    Store.dispatch(setLoggedInUserDetails({
+      id: decoded.user_id, 
+      email: decoded.email,
+      first_name: decoded.first_name, 
+      last_name: decoded.last_name
+    }))
   } catch (err) {
     // handleAPIError(err, 'Username or password is incorrect !')
     throw err

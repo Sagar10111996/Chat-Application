@@ -16,6 +16,9 @@ const Request = {
   LOGIN_USER: '/auth/login',
   REGISTER_USER: '/auth/register',
   REFRESH_TOKEN: '/auth/login/refresh',
+  GET_ALL_ROOMS_FOR_USER: '/chat/rooms',
+  GET_CURRENT_CHATS: '/chat/',
+  CREATE_ROOM: '/chat/rooms',
 }
 
 export {
